@@ -87,7 +87,7 @@ class Radix
         {
             for(int x = 0; x < arr.length; x++)
             {
-                int digit = getDigit(arr[x], powers)
+                int digit = getDigit(arr[x], powers);
                 
                 qArr[digit].enqueue(arr[x]);
             }
