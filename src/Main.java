@@ -14,6 +14,10 @@ public class Main
         //copy array
         int[] carbon = Radix.carbon(arr, arr.length);
 
+        int max = Radix.getMax(arr, arr.length);
+
+        arr = carbon;
+
     }
 }
 
@@ -33,6 +37,28 @@ class Radix
             temp[i] = arr[i];
         }
         return temp;
+    }
+
+    public static int getMax(int[] arr, int length)
+    {
+        int max = arr[0];
+
+        for (int i = 1; i < length; i++)
+        {
+            if (max < arr[i])
+            {
+                max = arr[i];
+            }
+        }
+        int maxB = 1;
+
+        for (int i = max; i > 1; i/=10)
+        {
+            maxB = maxB * 10;
+        }
+        maxB = maxB / 10;
+
+        return maxB;
     }
 }
 
