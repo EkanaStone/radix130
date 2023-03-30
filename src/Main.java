@@ -8,8 +8,7 @@ public class Main
 {
     public static void main(String[] args) throws Exception
     {
-        //chang numbers
-        int[] arr = {420, 96, 69, 42960, 94206, 69420, 5, 88, 65, 234};
+        int[] arr = {99, 34, 777, 420, 360, 720, 808, 10, 1, 21};
 
         //copy array
         int[] carbon = Radix.carbon(arr, arr.length);
@@ -39,6 +38,15 @@ class Node
 
 class Radix
 {
+    public static void toString(int[] arr)
+    {
+        for(int i=0; i < arr.length; i++)
+        {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
     public static int[] carbon(int[] arr, int length)
     {
         int[] temp = new int[length];
@@ -72,6 +80,7 @@ class Radix
         return maxB;
     }
 
+    //sort ascended
     public static void sortUp(int[] arr, int maxB)
     {
         System.out.println("Ascended Sort:");
@@ -83,6 +92,7 @@ class Radix
             qArr[i] = new Queue();
         }
 
+        //fill buckets
         for (int powers = 1; powers <= maxB; powers*=10)
         {
             for(int x = 0; x < arr.length; x++)
@@ -94,6 +104,7 @@ class Radix
 
             int m = 0;
 
+            //increment
             for (int qNum = 0; qNum < 10; qNum++)
             {
                 for(; !qArr[qNum].isEmpty(); m++)
@@ -102,10 +113,43 @@ class Radix
                 }
             }
         }
+        toString(arr);
     }
+
+    //sort descended
     public static void sortDown(int[] arr, int maxB)
     {
-        
+        System.out.println("Descended Sort:");
+
+        Queue[] qArr = new Queue[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            qArr[i] = new Queue();
+        }
+
+        //fill buckets
+        for (int powers = 1; powers <= maxB; powers*=10)
+        {
+            for(int x = 0; x < arr.length; x++)
+            {
+                int digit = getDigit(arr[x], powers);
+                
+                qArr[digit].enqueue(arr[x]);
+            }
+
+            int m = 0;
+
+            //decrement
+            for (int qNum = 9; qNum >= 0; qNum--)
+            {
+                for(; !qArr[qNum].isEmpty(); m++)
+                {
+                    arr[m] = qArr[qNum].dequeue();
+                }
+            }
+        }
+        toString(arr);
     }
 
     private static int getDigit(int num, int powers)
