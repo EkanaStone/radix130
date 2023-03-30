@@ -16,14 +16,25 @@ public class Main
 
         int max = Radix.getMax(arr, arr.length);
 
+        Radix.sortUp(arr, max);
+        
         arr = carbon;
+
+        Radix.sortDown(arr, max);
+
 
     }
 }
 
 class Node
 {
+    public int data;
+    public Node next;
 
+    public Node(int data)
+    {
+        this.data=data;
+    }
 }
 
 class Radix
@@ -60,9 +71,87 @@ class Radix
 
         return maxB;
     }
+
+    public static void sortUp(int[] arr, int maxB)
+    {
+        System.out.println("Ascended Sort:");
+
+        Queue[] qArr = new Queue[10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            qArr[i] = new Queue();
+        }
+
+        for (int powers = 1; powers <= maxB; powers*=10)
+        {
+            for(int x = 0; x < arr.length; x++)
+            {
+                int digit = getDigit(arr[x], powers)
+                
+                qArr[digit].enqueue(arr[x]);
+            }
+
+            int m = 0;
+
+            for (int qNum = 0; qNum < 10; qNum++)
+            {
+                for(; !qArr[qNum].isEmpty(); m++)
+                {
+                    arr[m] = qArr[qNum].dequeue();
+                }
+            }
+        }
+    }
+    public static void sortDown(int[] arr, int maxB)
+    {
+        
+    }
+
+    private static int getDigit(int num, int powers)
+    {
+        return (num / powers) % 10;
+    }
+
 }
 
 class Queue 
 {
+    private Node head;
+    private Node tail;
 
+    public boolean isEmpty()
+    {
+        return head == null;
+    }
+
+    public void enqueue(int data)
+    {
+        Node node = new Node(data);
+
+        if(head == null)
+        {
+            head = node;
+        }
+        else if(tail != null)
+        {
+            tail.next = node;
+        }
+
+        tail = node;
+    }
+
+    public int dequeue()
+    {
+        int data = head.data;
+
+        head = head.next;
+
+        if(head == null)
+        {
+            tail = null;
+        }
+
+        return data;
+    }
 }
