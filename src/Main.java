@@ -17,8 +17,6 @@ public class Main
         arr = carbon;
 
         Radix.sortDown(arr, max);
-
-
     }
 }
 
